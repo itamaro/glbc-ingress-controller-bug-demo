@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-ing
+  namespace: kube-system
+spec:
+  backend:
+    # Re-use fe as the default backend so we stay under the default
+    # quota for gce BackendServices.
+    serviceName: web-app
+    servicePort: www
+  rules:
+  # app
+  - host: app.yowza3d.com
+    http:
+      paths:
+      - backend:
+          serviceName: web-app
+          servicePort: www

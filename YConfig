@@ -1,0 +1,3 @@
+docker-pull-cmd: gcloud docker -- pull
+docker-push-cmd: gcloud docker -- push
+scm-provider: git

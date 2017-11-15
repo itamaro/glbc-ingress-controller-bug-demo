@@ -1,0 +1,36 @@
+from yabt.docker import deployable_caching_behavior
+
+PythonPackage(
+    'flask',
+    package='Flask',
+    version='0.12',
+    pip='pip'
+)
+
+ExtDockerImage(
+    'python',
+    image='python',
+    tag='3.6'
+)
+
+Python(
+    'py-app',
+    sources='app.py',
+    deps=[
+        ':flask',
+    ]
+)
+
+PythonApp(
+    'app',
+    base_image=':python',
+    main='app.py',
+    deps=[
+        ':py-app'
+    ],
+    image_caching_behavior=deployable_caching_behavior(
+        conf,
+        remote_image_name='gcr.io/yowza3d/app',
+        remote_image_tag='0.1'
+    )
+)
